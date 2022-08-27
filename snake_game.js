@@ -29,10 +29,10 @@ function makeFood() {
 }
 
 // setting snek behavior
-const LEFT_DIR = '37';
-const UP_DIR = '38';
-const RIGHT_DIR = '39';
-const DOWN_DIR = '40';
+const LEFT_DIR = 37;
+const UP_DIR = 38;
+const RIGHT_DIR = 39;
+const DOWN_DIR = 40;
 
 let snekCurDir = RIGHT_DIR;
 
@@ -98,12 +98,13 @@ function moveSnake() {
 
     // check if snek head will eat itself
     if (nextSnekHeadPixel.classList.contains('snakeBodyPixel')) {
-        clearInterval(moveSnekInterval);
+        // clearInterval(moveSnekInterval);
         alert(`Game Over! Your snake has eaten ${sumFoodEat} food and traveled ${sumDistTrav} blocks.`);
         curHeadPos = TOTAL_PX_CT/2;
         sumFoodEat = 0;
         sumDistTrav = 0;
         snekLength = 200;
+        snekCurDir = RIGHT_DIR;
     }
 
     // if next empty pixel, added snake body styling
@@ -121,6 +122,9 @@ function moveSnake() {
         snekLength = snekLength + 100;
         makeFood();
     }
+
+    sumDistTrav++;
+    document.getElementById('pointsTraveled').innerText = sumDistTrav;
 }
 
 //starts game
@@ -131,7 +135,7 @@ makeFood();
 // set animation speed
 let moveSnekInterval = setInterval(moveSnake, 100);
 
-addEventListener("keydown", e => altDir(e.code))
+addEventListener("keydown", e => altDir(e.keyCode))
 
 // add variables for on-screen button
 const leftButton = document.getElementById('leftButton')
